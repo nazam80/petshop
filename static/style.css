@@ -1,0 +1,31 @@
+@import url(//fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+}
+
+.ps-header {
+    height: 100px;
+    background-color: forestgreen;
+    color: yellow;
+    display: flex;
+    flex-direction: row;
+}
+
+.ps-shop-logo {
+    display: block;
+    margin: auto 20px;
+}
+
+.ps-shop-logo img {
+    height: 80px;
+    width: 80px;
+}
+
+.ps-shop-name {
+    display: block;
+    margin: auto 10px;
+}
