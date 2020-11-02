@@ -1,11 +1,10 @@
 package com.shop.mypetshop.application;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.shop.mypetshop.domain.Breed;
 import com.shop.mypetshop.domain.Pet;
 import com.shop.mypetshop.repo.PetRepository;
 
@@ -22,22 +21,11 @@ public class PetFinder {
      */
     public List<PetDTO> findAll() {
 
-	List<PetDTO> petsResult = new ArrayList<PetDTO>();
-
 	List<Pet> petsFound = repo.findAll();
 
-//	 petsResult = petsFound.stream().map( p -> {
-//	     PetDTO pet = new PetDTO(p.getId(), p.getName(), p.getBreed().getName(), p.getBreed().getSpecie().getName())
-//	     return pet;
-//	 }).collect(Collectors.toList());
-
-	for (Pet petFound : petsFound) {
-	    Breed petBreed = petFound.getBreed();
-	    PetDTO petResult = new PetDTO(petFound.getId(), petFound.getName(), petBreed.getName(),
-		    petBreed.getSpecie().getName());
-	    petsResult.add(petResult);
-	}
-
-	return petsResult;
+	return petsFound.stream()
+		.map( pet -> new PetDTO(pet.getId(), pet.getName(), pet.getBreed().getName(), pet.getBreed().getSpecie().getName()))
+		.collect(Collectors.toList());
+	
     }
 }
