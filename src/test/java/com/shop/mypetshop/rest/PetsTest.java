@@ -15,8 +15,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.shop.mypetshop.domain.Pet;
-import com.shop.mypetshop.domain.Specie;
+import com.shop.mypetshop.application.PetDTO;
 
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -31,23 +30,33 @@ public class PetsTest
     @Test
     public void test_getAll()
     {
-        final ResponseEntity<Pet[]> response = restTemplate.getForEntity(createBaseUrl() + "/pets", Pet[].class);
+        final ResponseEntity<PetDTO[]> response = restTemplate.getForEntity(createBaseUrl() + "/pets", PetDTO[].class);
 
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        final List<Pet> responsePets = Arrays.asList(response.getBody());
-        assertEquals(11, responsePets.size());
+        final List<PetDTO> responsePets = Arrays.asList(response.getBody());        
         responsePets.forEach(entity -> {
             assertNotNull(entity.getId());
             assertNotNull(entity.getName());
             assertNotNull(entity.getBreed());
-
-            final Specie specie = entity.getBreed().getSpecie();
-            assertNotNull(specie);
-            assertNotNull(specie.getName());
+            assertNotNull(entity.getSpecie());
         });
     }
+    
+    
+    @Test
+    public void test_addPet()
+    {
+	final PetDTO request = new PetDTO("My Pet", "Chihuahua", "Canis");
+        final ResponseEntity<Object> response = restTemplate.postForEntity(createBaseUrl() + "/pets", request, Object.class);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertNotNull(response.getHeaders().getLocation());
+    }
+    
+   
 
     private String createBaseUrl()
     {
