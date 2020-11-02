@@ -29,7 +29,7 @@ public class Pets
     private final PetFinder finder;
     private final PetCreator creator;
 
-    public Pets(final PetFinder finder, final PetCeator creator)
+    public Pets(final PetFinder finder, final PetCreator creator)
     {
         this.finder = finder;
         this.creator = creator;
