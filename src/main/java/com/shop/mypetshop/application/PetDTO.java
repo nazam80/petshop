@@ -3,6 +3,8 @@ package com.shop.mypetshop.application;
 import java.util.Objects;
 
 public class PetDTO {
+    
+
     private Long id;
 
     private String name;
@@ -10,7 +12,14 @@ public class PetDTO {
     private String breed;
     
     private String specie;
+    
+    public PetDTO() {	
+    }
 
+    public PetDTO(String name, String breed, String specie) {
+	this(null, name, breed, specie);
+    }
+    
     public PetDTO(Long id, String name, String breed, String specie) {
 	super();
 	this.id = id;

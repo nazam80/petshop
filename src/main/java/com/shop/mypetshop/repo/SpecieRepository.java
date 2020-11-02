@@ -14,4 +14,5 @@ import com.shop.mypetshop.domain.Specie;
 @Repository
 public interface SpecieRepository extends JpaRepository<Specie, Long>
 {
+    Specie findByName(String name);
 }
